@@ -4,16 +4,10 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 class Square extends React.Component {
-  constructor(props){
-    super(props);
-    this.state={
-      number: null,
-    }
-  }
   render() {
     return (
-      <button className="square" onClick={()=>this.setState({number:'X'})}>
-        {this.state.number}
+      <button className="square" onClick={()=>this.props.onClick()}>
+        {this.props.value}
       </button>
     );
   }
@@ -24,14 +18,30 @@ class Board extends React.Component {
     super(props);
     this.state={
       square: Array(9),
+      xIsNext:true,
     }
   }
+
+  handleClick(i){
+    const square= this.state.square.slice();
+    if(this.state.xIsNext){
+      square[i]='X'
+    }
+    else{
+      square[i]='O'
+    }
+    this.setState({
+      square:square,
+      xIsNext:!this.state.xIsNext,
+    });
+  }
+
   renderSquare(i) {
-    return <Square number={this.state.square[i]} onClick=()=>this.HandleClick(i)/>;
+    return <Square value={this.state.square[i]} onClick={()=>this.handleClick(i)}/>;
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player:' + (this.state.xIsNext?'X':'O');
 
     return (
       <div>
