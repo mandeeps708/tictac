@@ -20,8 +20,14 @@ class Square extends React.Component {
 }
 
 class Board extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      square: Array(9),
+    }
+  }
   renderSquare(i) {
-    return <Square number={i}/>;
+    return <Square number={this.state.square[i]} onClick=()=>this.HandleClick(i)/>;
   }
 
   render() {
