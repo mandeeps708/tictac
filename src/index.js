@@ -4,10 +4,16 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 class Square extends React.Component {
+  constructor(props){
+    super(props);
+    this.state={
+      number: null,
+    }
+  }
   render() {
     return (
-      <button className="square" onClick={()=>alert('test')}>
-        {this.props.number}
+      <button className="square" onClick={()=>this.setState({number:'X'})}>
+        {this.state.number}
       </button>
     );
   }
